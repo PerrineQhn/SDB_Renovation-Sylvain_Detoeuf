@@ -449,6 +449,7 @@ function loadRecentProjects() {
             id: 1,
             title: "Rénovation complète salle de bain",
             client: "J. Plumeridge - Le Villars",
+            fromReview: true,
             date: "Novembre 2024",
             description: "Transformation complète d'une salle de bain avec création d'un espace moderne et fonctionnel",
             images: ["images/reviews/plumeridge-1.jpg", "images/reviews/plumeridge-2.jpg", "images/reviews/plumeridge-3.jpg", "images/reviews/plumeridge-4.jpg", "images/reviews/plumeridge-5.jpg", "images/reviews/plumeridge-6.jpg"]
@@ -471,10 +472,21 @@ function loadRecentProjects() {
         }
     ];
 
-    grid.innerHTML = recentProjects.map(item => `
+    // helper local : choisir image 'apres' si possible
+    function getBestImage(item) {
+        if (!item.images || item.images.length === 0) return '';
+        const apres = item.images.find(src => /apres|après/i.test(src));
+        if (apres) return apres;
+        return item.images[item.images.length - 1];
+    }
+
+    grid.innerHTML = recentProjects.map(item => {
+        const displayDate = item.fromReview ? item.date : '2025';
+        const mainImage = getBestImage(item) || (item.images[0] || '');
+        return `
         <div class="portfolio-item">
             <div class="portfolio-image-container">
-                <img src="${item.images[0]}" alt="${item.title}" class="portfolio-main-image">
+                <img src="${mainImage}" alt="${item.title}" class="portfolio-main-image">
                 <div class="portfolio-overlay">
                     <div class="portfolio-overlay-content">
                         <h3>${item.title}</h3>
@@ -490,12 +502,12 @@ function loadRecentProjects() {
                 </div>
                 ${item.images.length > 1 ? `<div class="image-count">${item.images.length} photos</div>` : ''}
             </div>
-            <div class="portfolio-info">
+                <div class="portfolio-info">
                 <div class="portfolio-category">Rénovation salle de bains</div>
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
-                <small>${item.date}</small>
+                <small>${displayDate}</small>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 }

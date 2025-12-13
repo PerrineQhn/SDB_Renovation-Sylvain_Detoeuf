@@ -8,6 +8,7 @@ const portfolioItems = [
         category: "salle-de-bains",
         title: "Rénovation complète salle de bain",
         client: "J. Plumeridge - Le Villars",
+        fromReview: true,
         date: "Novembre 2024",
         description: "Transformation complète d'une salle de bain avec création d'un espace moderne et fonctionnel",
         images: [
@@ -25,6 +26,7 @@ const portfolioItems = [
         category: "plomberie",
         title: "Remplacement bac à douche et faïence",
         client: "Dubois, Ciel",
+        fromReview: true,
         date: "Octobre 2024",
         description: "Remplacement complet du bac à douche avec pose de nouvelle faïence",
         images: [
@@ -68,6 +70,16 @@ const portfolioItems = [
 // PORTFOLIO DISPLAY
 // ========================================
 
+// Retourne l'image principale à afficher : on privilégie les images 'apres' (apres/après), sinon on prend la dernière image si possible
+function getBestImage(item) {
+    if (!item.images || item.images.length === 0) return '';
+    // rechercher une image contenant 'apres' ou 'après' (insensible à la casse)
+    const apres = item.images.find(src => /apres|après/i.test(src));
+    if (apres) return apres;
+    // sinon préférer la dernière image (généralement 'après')
+    return item.images[item.images.length - 1];
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     displayPortfolio();
     setupProjectDetail();
@@ -86,10 +98,14 @@ function displayPortfolio() {
         return;
     }
 
-    grid.innerHTML = portfolioItems.map(item => `
+    grid.innerHTML = portfolioItems.map(item => {
+        const mainImage = getBestImage(item) || (item.images[0] || '');
+        // Si l'item ne provient pas d'un avis client, forcer l'année 2025
+        const displayDate = item.fromReview ? item.date : '2025';
+        return `
         <div class="portfolio-item" data-category="${item.category}">
             <div class="portfolio-image-container">
-                <img src="${item.images[0]}" alt="${item.title}" class="portfolio-main-image">
+                <img src="${mainImage}" alt="${item.title}" class="portfolio-main-image">
                 <div class="portfolio-overlay">
                     <div class="portfolio-overlay-content">
                         <h3>${item.title}</h3>
@@ -105,14 +121,14 @@ function displayPortfolio() {
                 </div>
                 ${item.images.length > 1 ? `<div class="image-count">${item.images.length} photos</div>` : ''}
             </div>
-            <div class="portfolio-info">
+                <div class="portfolio-info">
                 <div class="portfolio-category">${getCategoryLabel(item.category)}</div>
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
-                <small>${item.date}</small>
+                <small>${displayDate}</small>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 }
 
 function getCategoryLabel() {
@@ -148,7 +164,8 @@ function openProject(projectId) {
     document.getElementById('projectDetailTitle').textContent = project.title;
     document.getElementById('projectDetailClient').textContent = project.client;
     document.getElementById('projectDetailDescription').textContent = project.description;
-    document.getElementById('projectDetailDate').textContent = project.date;
+    // Si le projet ne provient pas d'un avis client, afficher 2025
+    document.getElementById('projectDetailDate').textContent = project.fromReview ? project.date : '2025';
 
     const gallery = document.getElementById('projectDetailGallery');
     gallery.innerHTML = project.images.map((img, index) => `
