@@ -51,14 +51,22 @@ contactForm.addEventListener('submit', function(e) {
         `Le client accepte d'être contacté pour un devis gratuit.`
     );
 
-    // Ouverture du client email
-    window.location.href = `mailto:dsb.plomberie.express@gmail.com?subject=${subject}&body=${body}`;
+        // Préparer le lien mailto
+        const mailtoLink = `mailto:sdb.plomberie.express@gmail.com?subject=${subject}&body=${body}`;
 
-    // Message de confirmation
-    alert('Votre demande va être envoyée par email. Merci de compléter l\'envoi dans votre client email.');
+        // Demande de confirmation avant d'ouvrir le client mail
+        const proceed = confirm(
+            "Un nouvel e-mail va s'ouvrir dans votre application mail.\nAprès l'ouverture, veuillez cliquer sur 'Envoyer' dans votre client mail pour finaliser la demande.\n\nVoulez-vous continuer ?"
+        );
 
-    // Réinitialisation du formulaire
-    contactForm.reset();
+        if (proceed) {
+            // Ouvre le client mail. L'utilisateur doit valider l'envoi dans son application.
+            window.location.href = mailtoLink;
+            // Réinitialisation du formulaire (ici on reset localement; si l'utilisateur annule l'envoi côté client, le message aura déjà été préparé)
+            contactForm.reset();
+        } else {
+            alert('Envoi annulé. Vous pouvez modifier votre demande ou l\'envoyer plus tard.');
+        }
 });
 
 // ========================================

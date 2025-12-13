@@ -989,6 +989,14 @@ textarea {
     box-shadow: var(--shadow-lg);
 }
 
+/* Note indiquant d'envoyer le mail dans le client */
+.mail-note {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: var(--color-gray-dark);
+    font-style: italic;
+}
+
 /* ========================================
    FOOTER
    ======================================== */
