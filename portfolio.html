@@ -59,7 +59,7 @@
             <div class="header-content">
                 <div class="logo">
                     <h1><a href="index.html" style="color: inherit; text-decoration: none;">ETS Detœuf Sylvain</a></h1>
-                    <p class="tagline">Votre expert salle de bains & plomberie</p>
+                    <p class="tagline">Salle de bains, carrelage & dépannage plomberie</p>
                 </div>
                 <nav class="main-nav">
                     <a href="index.html">Accueil</a>
@@ -82,19 +82,7 @@
     <section class="portfolio-hero">
         <div class="container">
             <h1>Nos Réalisations</h1>
-            <p>Découvrez notre savoir-faire à travers nos projets achevés</p>
-        </div>
-    </section>
-
-    <!-- Filters -->
-    <section class="portfolio-filters">
-        <div class="container">
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">Toutes</button>
-                <button class="filter-btn" data-filter="salle-de-bains">Salles de bains</button>
-                <button class="filter-btn" data-filter="plomberie">Plomberie</button>
-                <button class="filter-btn" data-filter="carrelage">Carrelage</button>
-            </div>
+            <p>Découvrez notre savoir-faire en rénovation de salles de bains</p>
         </div>
     </section>
 
@@ -138,7 +126,25 @@
         </div>
     </footer>
 
-    <!-- Lightbox Modal -->
+    <!-- Project Detail View -->
+    <div id="projectDetail" class="project-detail">
+        <div class="project-detail-content">
+            <button class="project-detail-close">&times;</button>
+            <div class="project-detail-header">
+                <h2 id="projectDetailTitle"></h2>
+                <p id="projectDetailClient"></p>
+            </div>
+            <div class="project-detail-gallery" id="projectDetailGallery">
+                <!-- Images will be inserted here -->
+            </div>
+            <div class="project-detail-info">
+                <p id="projectDetailDescription"></p>
+                <small id="projectDetailDate"></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal (for individual image zoom) -->
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close">&times;</span>
         <div class="lightbox-content">

@@ -31,37 +31,62 @@ const portfolioItems = [
             "images/reviews/dubois-1.jpg"
         ]
     },
-    // Vous pouvez ajouter plus de réalisations ici
+    // Projet de transformation complète
+    {
+        id: 3,
+        category: "salle-de-bains",
+        title: "Transformation complète salle de bain - Avant/Après",
+        client: "Projet de rénovation complète",
+        date: "2024",
+        description: "Rénovation totale d'une salle de bain avec démolition, création de nouvelles installations et finitions haut de gamme",
+        images: [
+            "images/reviews/projet1-avant.jpg",
+            "images/reviews/projet1-avant1.jpg",
+            "images/reviews/projet1-encours.jpg",
+            "images/reviews/projet1-encours2.jpg",
+            "images/reviews/projet1-apres2.jpg",
+            "images/reviews/projet1-apres3.jpg"
+        ]
+    },
+    // Projet finitions
+    {
+        id: 4,
+        category: "salle-de-bains",
+        title: "Rénovation salle de bain moderne",
+        client: "Finitions premium",
+        date: "2024",
+        description: "Création d'une salle de bain contemporaine avec carrelage et équipements modernes",
+        images: [
+            "images/reviews/projet2-apres1.jpg",
+            "images/reviews/projet2-apres2.jpg",
+            "images/reviews/projet2-apres3.jpg"
+        ]
+    }
 ];
 
 // ========================================
 // PORTFOLIO DISPLAY
 // ========================================
-let currentFilter = 'all';
 
 document.addEventListener('DOMContentLoaded', function() {
     displayPortfolio();
-    setupFilters();
+    setupProjectDetail();
     setupLightbox();
 });
 
 function displayPortfolio() {
     const grid = document.getElementById('portfolioGrid');
-    const filteredItems = currentFilter === 'all'
-        ? portfolioItems
-        : portfolioItems.filter(item => item.category === currentFilter);
 
-    if (filteredItems.length === 0) {
+    if (portfolioItems.length === 0) {
         grid.innerHTML = `
             <div class="portfolio-placeholder">
-                <p>Aucune réalisation dans cette catégorie pour le moment.</p>
-                <p><a href="#" onclick="resetFilter(); return false;">Voir toutes les réalisations</a></p>
+                <p>Aucune réalisation pour le moment.</p>
             </div>
         `;
         return;
     }
 
-    grid.innerHTML = filteredItems.map(item => `
+    grid.innerHTML = portfolioItems.map(item => `
         <div class="portfolio-item" data-category="${item.category}">
             <div class="portfolio-image-container">
                 <img src="${item.images[0]}" alt="${item.title}" class="portfolio-main-image">
@@ -90,47 +115,66 @@ function displayPortfolio() {
     `).join('');
 }
 
-function getCategoryLabel(category) {
-    const labels = {
-        'salle-de-bains': 'Salle de bains',
-        'plomberie': 'Plomberie',
-        'carrelage': 'Carrelage'
-    };
-    return labels[category] || category;
+function getCategoryLabel() {
+    return 'Rénovation salle de bains';
 }
 
 // ========================================
-// FILTERS
+// PROJECT DETAIL VIEW
 // ========================================
-function setupFilters() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
+function setupProjectDetail() {
+    const projectDetail = document.getElementById('projectDetail');
+    const closeBtn = document.querySelector('.project-detail-close');
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Remove active class from all buttons
-            filterBtns.forEach(b => b.classList.remove('active'));
+    closeBtn.addEventListener('click', closeProjectDetail);
 
-            // Add active class to clicked button
-            this.classList.add('active');
-
-            // Update current filter
-            currentFilter = this.dataset.filter;
-
-            // Display filtered items
-            displayPortfolio();
-        });
-    });
-}
-
-function resetFilter() {
-    currentFilter = 'all';
-    document.querySelector('[data-filter="all"]').classList.add('active');
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.dataset.filter !== 'all') {
-            btn.classList.remove('active');
+    projectDetail.addEventListener('click', function(e) {
+        if (e.target === projectDetail) {
+            closeProjectDetail();
         }
     });
-    displayPortfolio();
+
+    function closeProjectDetail() {
+        projectDetail.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function openProject(projectId) {
+    const project = portfolioItems.find(item => item.id === projectId);
+    if (!project) return;
+
+    const projectDetail = document.getElementById('projectDetail');
+    document.getElementById('projectDetailTitle').textContent = project.title;
+    document.getElementById('projectDetailClient').textContent = project.client;
+    document.getElementById('projectDetailDescription').textContent = project.description;
+    document.getElementById('projectDetailDate').textContent = project.date;
+
+    const gallery = document.getElementById('projectDetailGallery');
+    gallery.innerHTML = project.images.map((img, index) => `
+        <div class="project-detail-image-container">
+            <img src="${img}" alt="${project.title} - Image ${index + 1}" class="project-detail-image" onclick="openLightboxFromDetail(${projectId}, ${index})">
+        </div>
+    `).join('');
+
+    projectDetail.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function openLightboxFromDetail(projectId, imageIndex) {
+    const project = portfolioItems.find(item => item.id === projectId);
+    if (!project) return;
+
+    currentGallery = project.images;
+    currentProjectTitle = project.title;
+    currentImageIndex = imageIndex;
+
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.add('active');
+
+    if (window.updateLightboxImage) {
+        window.updateLightboxImage();
+    }
 }
 
 // ========================================
@@ -214,21 +258,4 @@ function setupLightbox() {
 
     // Expose updateLightboxImage globalement
     window.updateLightboxImage = updateLightboxImage;
-}
-
-function openProject(projectId) {
-    const project = portfolioItems.find(item => item.id === projectId);
-    if (!project) return;
-
-    currentGallery = project.images;
-    currentProjectTitle = project.title;
-    currentImageIndex = 0;
-
-    const lightbox = document.getElementById('lightbox');
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    if (window.updateLightboxImage) {
-        window.updateLightboxImage();
-    }
 }
