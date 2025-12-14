@@ -63,6 +63,76 @@ const portfolioItems = [
             "images/reviews/projet2-apres2.jpg",
             "images/reviews/projet2-apres3.jpg"
         ]
+    },
+    // Projet 3 - Rénovation salle de bain
+    {
+        id: 5,
+        category: "salle-de-bains",
+        title: "Rénovation salle de bain avec douche",
+        client: "Rénovation complète",
+        date: "2024",
+        description: "Installation d'une nouvelle douche avec carrelage moderne et aménagement optimisé",
+        images: [
+            "images/reviews/projet3-encours3.jpg",
+            "images/reviews/projet3-apres1.jpg",
+            "images/reviews/projet3-apres2.jpg",
+            "images/reviews/projet3-apres3.jpg"
+        ]
+    },
+    // Projet 4 - Salle de bain élégante
+    {
+        id: 6,
+        category: "salle-de-bains",
+        title: "Salle de bain élégante et fonctionnelle",
+        client: "Installation complète",
+        date: "2024",
+        description: "Création d'un espace moderne avec douche italienne et finitions soignées",
+        images: [
+            "images/reviews/projet4-apres1.jpg",
+            "images/reviews/projet4-apres2.jpg",
+            "images/reviews/projet4-apres3.jpg"
+        ]
+    },
+    // Projet 6 - Rénovation contemporaine
+    {
+        id: 7,
+        category: "salle-de-bains",
+        title: "Rénovation salle de bain style contemporain",
+        client: "Design moderne",
+        date: "2024",
+        description: "Aménagement d'une salle de bain au design épuré avec équipements haut de gamme",
+        images: [
+            "images/reviews/projet6-apres1.jpg",
+            "images/reviews/projet6-apres2.jpg",
+            "images/reviews/projet6-apres3.jpg"
+        ]
+    },
+    // Projet 7 - Installation douche
+    {
+        id: 8,
+        category: "salle-de-bains",
+        title: "Installation douche moderne",
+        client: "Modernisation salle de bain",
+        date: "2024",
+        description: "Installation d'une nouvelle douche avec carrelage mural et aménagement optimisé",
+        images: [
+            "images/reviews/projet7-apres1.jpg",
+            "images/reviews/projet7-apres2.jpg"
+        ]
+    },
+    // Projet 8 - Transformation avant/en cours
+    {
+        id: 9,
+        category: "salle-de-bains",
+        title: "Transformation salle de bain - Avant/En cours",
+        client: "Rénovation en cours",
+        date: "2024",
+        description: "Suivi d'un projet de rénovation : de l'état initial aux travaux en cours",
+        images: [
+            "images/reviews/projet8-avant1.jpg",
+            "images/reviews/projet8-encours1.jpg",
+            "images/reviews/projet8-encours2.jpg"
+        ]
     }
 ];
 
@@ -100,8 +170,6 @@ function displayPortfolio() {
 
     grid.innerHTML = portfolioItems.map(item => {
         const mainImage = getBestImage(item) || (item.images[0] || '');
-        // Si l'item ne provient pas d'un avis client, forcer l'année 2025
-        const displayDate = item.fromReview ? item.date : '2025';
         return `
         <div class="portfolio-item" data-category="${item.category}">
             <div class="portfolio-image-container">
@@ -109,7 +177,7 @@ function displayPortfolio() {
                 <div class="portfolio-overlay">
                     <div class="portfolio-overlay-content">
                         <h3>${item.title}</h3>
-                        <p>${item.client}</p>
+                        ${item.fromReview ? `<p>${item.client}</p>` : ''}
                         <button class="view-btn" onclick="openProject(${item.id})">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -122,10 +190,9 @@ function displayPortfolio() {
                 ${item.images.length > 1 ? `<div class="image-count">${item.images.length} photos</div>` : ''}
             </div>
                 <div class="portfolio-info">
-                <div class="portfolio-category">${getCategoryLabel(item.category)}</div>
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
-                <small>${displayDate}</small>
+                <small>${item.date}</small>
             </div>
         </div>
     `}).join('');
@@ -162,10 +229,17 @@ function openProject(projectId) {
 
     const projectDetail = document.getElementById('projectDetail');
     document.getElementById('projectDetailTitle').textContent = project.title;
-    document.getElementById('projectDetailClient').textContent = project.client;
+
+    const clientElement = document.getElementById('projectDetailClient');
+    if (project.fromReview) {
+        clientElement.textContent = project.client;
+        clientElement.style.display = '';
+    } else {
+        clientElement.style.display = 'none';
+    }
+
     document.getElementById('projectDetailDescription').textContent = project.description;
-    // Si le projet ne provient pas d'un avis client, afficher 2025
-    document.getElementById('projectDetailDate').textContent = project.fromReview ? project.date : '2025';
+    document.getElementById('projectDetailDate').textContent = project.date;
 
     const gallery = document.getElementById('projectDetailGallery');
     gallery.innerHTML = project.images.map((img, index) => `

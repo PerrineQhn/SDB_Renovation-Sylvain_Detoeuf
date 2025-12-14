@@ -481,7 +481,6 @@ function loadRecentProjects() {
     }
 
     grid.innerHTML = recentProjects.map(item => {
-        const displayDate = item.fromReview ? item.date : '2025';
         const mainImage = getBestImage(item) || (item.images[0] || '');
         return `
         <div class="portfolio-item">
@@ -490,7 +489,7 @@ function loadRecentProjects() {
                 <div class="portfolio-overlay">
                     <div class="portfolio-overlay-content">
                         <h3>${item.title}</h3>
-                        <p>${item.client}</p>
+                        ${item.fromReview ? `<p>${item.client}</p>` : ''}
                         <a href="portfolio.html" class="view-btn">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -503,10 +502,9 @@ function loadRecentProjects() {
                 ${item.images.length > 1 ? `<div class="image-count">${item.images.length} photos</div>` : ''}
             </div>
                 <div class="portfolio-info">
-                <div class="portfolio-category">Rénovation salle de bains</div>
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
-                <small>${displayDate}</small>
+                <small>${item.date}</small>
             </div>
         </div>
     `}).join('');
