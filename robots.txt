@@ -1,0 +1,13 @@
+# robots.txt pour ETS Detoeuf Sylvain
+# https://salle-de-bains-plomberie-renovation-71.fr
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://salle-de-bains-plomberie-renovation-71.fr/sitemap.xml
+
+# Crawl-delay (optionnel, aide à éviter de surcharger le serveur)
+Crawl-delay: 1
