@@ -1677,6 +1677,11 @@ textarea {
         text-align: center;
     }
 
+    .logo-banner {
+        max-height: 80px;
+        margin-left: 0;
+    }
+
     .hero h2 {
         font-size: 1.8rem;
     }
@@ -1780,6 +1785,10 @@ textarea {
 }
 
 @media (max-width: 480px) {
+    .logo-banner {
+        max-height: 60px;
+    }
+
     .hero {
         padding: 50px 0;
     }
