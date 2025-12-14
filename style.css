@@ -44,6 +44,144 @@ body {
 }
 
 /* ========================================
+   BANDEAU PROMOTIONNEL
+   ======================================== */
+.promo-banner {
+    background: linear-gradient(135deg, #E31E24 0%, #c41217 100%);
+    color: var(--color-white);
+    padding: 12px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.promo-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.promo-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.promo-icon {
+    font-size: 1.5rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.promo-text {
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.promo-text strong {
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.promo-cta {
+    background: var(--color-white);
+    color: var(--color-red);
+    padding: 8px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.promo-cta:hover {
+    background: var(--color-blue);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.promo-close {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: var(--color-white);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin-left: auto;
+}
+
+.promo-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-white);
+    transform: rotate(90deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .promo-content {
+        gap: 10px;
+        padding: 5px 0;
+    }
+
+    .promo-text {
+        font-size: 0.9rem;
+        text-align: center;
+        flex: 1 1 100%;
+    }
+
+    .promo-text strong {
+        font-size: 1rem;
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    .promo-cta {
+        font-size: 0.85rem;
+        padding: 6px 16px;
+    }
+
+    .promo-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        font-size: 1.1rem;
+    }
+}
+
+/* ========================================
    HEADER
    ======================================== */
 .header {
