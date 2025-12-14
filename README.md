@@ -47,7 +47,7 @@ Les couleurs de la marque sont définies dans [style.css](style.css) :
 
 ## 📧 Formulaire de contact
 
-Le formulaire envoie les demandes de devis par email à : `dsb.plomberie.express@gmail.com`
+Le formulaire envoie les demandes de devis par email à : `sdb.plomberie.express@gmail.com`
 
 Le système utilise `mailto:` qui ouvre le client email par défaut de l'utilisateur.
 
@@ -78,7 +78,7 @@ Pour mettre le site en ligne, vous pouvez utiliser :
 ## 📞 Informations de contact
 
 - **Téléphone** : 07 87 25 20 94
-- **Email** : dsb.plomberie.express@gmail.com
+- **Email** : sdb.plomberie.express@gmail.com
 - **Adresse** : 71290 RANCY
 - **SIRET** : 424 141 638 RM 71
 - **Zone d'intervention** : Saône-et-Loire (71), Ain (01), Jura (39)

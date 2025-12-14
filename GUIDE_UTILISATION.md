@@ -70,7 +70,7 @@ Votre site web professionnel est maintenant prêt ! Voici ce qui a été créé 
 
 ### 📱 Formulaire de contact
 
-Le formulaire envoie automatiquement un email à `dsb.plomberie.express@gmail.com` avec :
+Le formulaire envoie automatiquement un email à `sdb.plomberie.express@gmail.com` avec :
 - Nom et prénom du client
 - Email et téléphone
 - Adresse du chantier
