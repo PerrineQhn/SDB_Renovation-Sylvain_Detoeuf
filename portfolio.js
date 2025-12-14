@@ -39,7 +39,7 @@ const portfolioItems = [
         category: "salle-de-bains",
         title: "Transformation complète salle de bain - Avant/Après",
         client: "Projet de rénovation complète",
-        date: "2024",
+        date: "2025",
         description: "Rénovation totale d'une salle de bain avec démolition, création de nouvelles installations et finitions haut de gamme",
         images: [
             "images/reviews/projet1-avant.jpg",
@@ -56,7 +56,7 @@ const portfolioItems = [
         category: "salle-de-bains",
         title: "Rénovation salle de bain moderne",
         client: "Finitions premium",
-        date: "2024",
+        date: "2025",
         description: "Création d'une salle de bain contemporaine avec carrelage et équipements modernes",
         images: [
             "images/reviews/projet2-apres1.jpg",
